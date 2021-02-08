@@ -13,8 +13,11 @@ import java.util.List;
 
 @RestController
 public class MyRestController {
-    @Autowired
-    private ProductService service;
+    private final ProductService service;
+
+    public MyRestController(ProductService service) {
+        this.service = service;
+    }
 
     /**
      * Retrieve a JSON list of the products contained in an HTML file.
@@ -84,7 +87,7 @@ public class MyRestController {
         return service.saveProduct(product);
     }
 
-    @GetMapping("/addProducts")
+    @GetMapping("/saveProducts")
     public List<Product> addProducts() {
         return service.saveProducts(this.getProducts());
     }
@@ -99,14 +102,14 @@ public class MyRestController {
         return service.getProductById(id);
     }
 
-    @GetMapping("/productByBrand/{brand}")
-    public Product findProductByBrand(@PathVariable String brand) {
+    @GetMapping("/productsByBrand/{brand}")
+    public List<Product> findProductByBrand(@PathVariable String brand) {
         return service.getProductByBrand(brand);
     }
 
-    @PutMapping("/update")
-    public Product updateProduct(@RequestBody Product product) {
-        return service.updateProduct(product);
+    @PutMapping("/update/{id}")
+    public Product updateProduct(@PathVariable int id, @RequestBody Product product) {
+        return service.updateProductById(id, product);
     }
 
     @DeleteMapping("/delete/{id}")

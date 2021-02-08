@@ -10,8 +10,11 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepository repository;
+    private final ProductRepository repository;
+
+    public ProductService(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     public Product saveProduct(Product product){
         return repository.save(product);
@@ -29,7 +32,7 @@ public class ProductService {
         return repository.findById(id).orElse(null);
     }
 
-    public Product getProductByBrand(String brand){
+    public List<Product> getProductByBrand(String brand){
         return repository.findByBrand(brand);
     }
 
@@ -38,8 +41,9 @@ public class ProductService {
         return "Successfully deleted!";
     }
 
-    public Product updateProduct(Product product){
-        Product existingProduct=repository.findById(product.getId()).orElse(null);
+    public Product updateProductById(int id, Product product){
+        Product existingProduct=repository.findById(id).orElse(null);
+        existingProduct.setTitle(product.getTitle());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setBrand(product.getBrand());
         existingProduct.setUrl(product.getUrl());
