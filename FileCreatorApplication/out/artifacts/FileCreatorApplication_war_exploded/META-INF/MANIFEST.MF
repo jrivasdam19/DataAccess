@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: Jose
+Build-Jdk: 1.8.0_111
+Implementation-Title: FileCreatorApplication
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.jrivas
+Main-Class: ${start-class}
+
